@@ -1,0 +1,14 @@
+D:\Program Files (x86)\Steam\steamapps\common\sbox\.vs\output\melon_racer.xml
+D:\Program Files (x86)\Steam\steamapps\common\sbox\.vs\output\melon_racer.deps.json
+D:\Program Files (x86)\Steam\steamapps\common\sbox\.vs\output\melon_racer.dll
+D:\Program Files (x86)\Steam\steamapps\common\sbox\.vs\output\melon_racer.pdb
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.csproj.AssemblyReference.cache
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.GeneratedMSBuildEditorConfig.editorconfig
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.AssemblyInfoInputs.cache
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.AssemblyInfo.cs
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.csproj.CoreCompileInputs.cache
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.csproj.CopyComplete
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.dll
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\refint\melon_racer.dll
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\melon_racer.pdb
+c:\users\benjamin\documents\s&box projects\melon_racer\code\obj\Debug\ref\melon_racer.dll

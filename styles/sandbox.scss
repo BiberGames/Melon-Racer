@@ -1,0 +1,39 @@
+﻿
+$blue: #3273eb;
+
+Timer
+{
+    position: absolute;
+    right: 100px;
+    bottom: 48px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    height: 80px;
+    padding: 0 30px;
+    align-items: center;
+    background-color: rgba( #111, 0.5 );
+}
+
+LapCounter
+{
+	margin: 16 auto;
+	justify-content: center;
+    font-size: 90px;
+    font-weight: bold;
+    color: white;
+    height: 80px;
+    padding: 0 30px;
+    align-items: center;
+    
+    background-color: rgba( #111, 0.5 );
+}
+
+rootpanel
+{
+	font-family: Grafity;
+    &.devcamera
+    {
+        display: none;
+    }
+}
