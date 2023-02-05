@@ -1,6 +1,7 @@
 using Sandbox;
 using System;
 using System.Linq;
+using static Sandbox.Event;
 
 namespace BenjaGames.MR;
 
@@ -54,6 +55,8 @@ partial class MRPlayer : Player
 	public override void OnKilled()
 	{
 		base.OnKilled();
+
+		
 
 		Particles.Create( "particles/impact.flesh-big.vpcf", Position );
 
