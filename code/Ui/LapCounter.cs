@@ -17,6 +17,6 @@ public class LapCounter : Panel
 		var player = Game.LocalPawn;
 		if ( player == null ) return;
 
-		Label.Text = $"Lap   {player.Health.CeilToInt()-1}";
+		Label.Text = $"LAP   0 / 10";
 	}
 }

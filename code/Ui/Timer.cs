@@ -16,7 +16,6 @@ public class Timer : Panel
 	{
 		var player = Game.LocalPawn;
 		if ( player == null ) return;
-
-		Label.Text = $"{player.Health.CeilToInt()}";
+		Label.Text = $"00 : 00 : 00";
 	}
 }

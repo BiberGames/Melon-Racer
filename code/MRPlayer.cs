@@ -1,4 +1,5 @@
 using Sandbox;
+using Sandbox.UI;
 using System;
 using System.Linq;
 using static Sandbox.Event;
@@ -7,15 +8,25 @@ namespace BenjaGames.MR;
 
 partial class MRPlayer : Player
 {
-	private int myLap = 0;
+	private int CheckpontCount { get; set; } = 0;
+
+	[Net]
+	private int MyLap { get; set; } = 0;
+
+	private bool[] Checkponts;
 	public LapTrigger Lap { get; set; }
 	public override void Respawn()
 	{
 		base.Respawn();
 
+		CheckpontCount = Sandbox.Entity.All.OfType<CheckpointTrigger>().Count();
+
+		Checkponts = new bool[CheckpontCount];
+
 		SetModel( "models/sbox_props/watermelon/watermelon.vmdl" );
 
 		Controller = new MRController();
+
 		Health = 1;
 
 		UsePhysicsCollision = true;
@@ -24,17 +35,70 @@ partial class MRPlayer : Player
 
 		SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 	}
+
+	[ConCmd.Server( "MRReport" )]
+	public static void Report()
+	{
+		if ( ConsoleSystem.Caller.Pawn is MRPlayer basePlayer )
+		{
+			Log.Info( "---===Report===----------" );
+			Log.Info( "CheckpontCount: " + basePlayer.CheckpontCount );
+			Log.Info( "MyLap: " + basePlayer.MyLap );
+
+			for ( int CPI = 0; CPI < basePlayer.CheckpontCount; CPI++ )
+			{
+				Log.Info( $"Checkpont {CPI}: {basePlayer.Checkponts[CPI	]}" );
+			}
+		}
+	}
+
+	public virtual void OnCheckpoint( CheckpointTrigger _CheckpointTrigger )
+	{
+		Checkponts[_CheckpointTrigger.Name.ToInt()-1] = true;
+		//Log.Info( $"Chekpoint {_CheckpointTrigger.Name.ToInt()} {Checkponts[_CheckpointTrigger.Name.ToInt()]}!" );
+	}
+
 	public virtual void OnLapFinish( LapTrigger _LapTrigger )
 	{
-		Log.Info( $"{_LapTrigger.TouchingEntities.First().Name} {myLap.ToString()}" );
-		Health++;
+		// Checks if every checkpoint has been activated
+		for ( int CPI = 0; CPI < Checkponts.Length; CPI++ )
+		{
+			if ( Checkponts[CPI] == false )
+				return;
+
+			Checkponts = new bool[CheckpontCount];
+			MyLap++;
+
+			//Log.Info( $"Lap {MyLap}!" );
+		}
 	}
+
+	[Event.Client.Frame]
+	void LocalCamera()
+	{
+		if ( this.IsLocalPawn )
+			ThirdPersonCamera();
+	}
+
+	public int GetCurrentLap()
+	{ 
+		return MyLap;
+	}
+
 	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );
 
 		// A Hack to make the camera work when player has physics enabled
-		ThirdPersonCamera();
+		//ThirdPersonCamera();
+	}
+
+	public override void FrameSimulate( IClient cl )
+	{
+		base.FrameSimulate( cl );
+
+		// FIX THE CAMERA!!!!!!!!!!!
+		//ThirdPersonCamera();
 	}
 
 
@@ -56,11 +120,10 @@ partial class MRPlayer : Player
 	{
 		base.OnKilled();
 
-		
-
+		// Spawns Melon Gibs
+		Particles.Create( "particles/impact.flesh-big.vpcf", Position );
 		Particles.Create( "particles/impact.flesh-big.vpcf", Position );
 
-		// Spawns Melon Gibs
 		SetModel( "models/sbox_props/watermelon/watermelon_gib01.vmdl" );
 		PhysicsGroup.Velocity = Velocity;
 
@@ -81,10 +144,7 @@ partial class MRPlayer : Player
 
 	void ThirdPersonCamera()
 	{
-		if ( Client.IsBot )
-			return;
-
-		Camera.FirstPersonViewer = this;
+		Camera.FirstPersonViewer = null;
 
 		Camera.Rotation = ViewAngles.ToRotation();
 

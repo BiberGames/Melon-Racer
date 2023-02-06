@@ -3,16 +3,16 @@ using Editor;
 
 namespace BenjaGames.MR;
 
-[Library( "trigger_new_lap" )]
-[Title( "New Lap Trigger" )]
+[Library( "trigger_checkpoint" )]
+[Title( "Checkpont" )]
 [HammerEntity]
-public partial class LapTrigger : BaseTrigger
+public partial class CheckpointTrigger : BaseTrigger
 {
 	public override void StartTouch( Entity other )
 	{
 		if ( other is MRPlayer Player )
 		{
-			Player.OnLapFinish( this );
+			Player.OnCheckpoint( this );
 		}
 
 		base.StartTouch( other );

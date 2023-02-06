@@ -17,7 +17,7 @@ public partial class SandboxHud : HudEntity<RootPanel>
 
 		RootPanel.StyleSheet.Load( "/styles/sandbox.scss" );
 
-		//RootPanel.AddChild<Timer>();
+		RootPanel.AddChild<Timer>();
 		RootPanel.AddChild<LapCounter>();
 		//RootPanel.AddChild<VoiceSpeaker>();
 		//RootPanel.AddChild<KillFeed>();

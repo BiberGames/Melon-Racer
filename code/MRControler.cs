@@ -8,7 +8,7 @@ class MRController : BasePlayerController
 	[ClientInput] public Vector3 InputDirection { get; protected set; }
 	[ClientInput] public Angles ViewAngles { get; set; }
 
-	public int ExtraSpeed;
+	public float ExtraSpeed;
 	
 	public override void BuildInput()
 	{
@@ -29,12 +29,12 @@ class MRController : BasePlayerController
 	public override void FrameSimulate()
 	{
 		base.FrameSimulate();
+		EyeRotation = Camera.Rotation;
 	}
 	
 	public override void Simulate()
 	{
-		ResetSpeed();
-		ExtraSpeed += (Time.Tick / 4);
+		ExtraSpeed += (Time.Tick / 3);
 
 		if(ExtraSpeed > 700)
 		{
@@ -44,8 +44,8 @@ class MRController : BasePlayerController
 		var direction = new Vector3( Input.AnalogMove.x, Input.AnalogMove.y, 0 );
 
 		// Rotate the vector so forward is the way we're facing
-		direction *= Camera.Rotation;
-		direction += Vector3.Down * 0.5f; ;
+		direction *= Camera.Rotation;	
+		direction += Vector3.Down * 0.5f;
 
 		// Normalize it and multiply by speed
 		direction = direction.Normal * (500 + ExtraSpeed);
